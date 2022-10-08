@@ -4,7 +4,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" href="#">Hidden brand</a>
+      <a class="navbar-brand" href="/">ReelTube</a>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
@@ -12,14 +12,18 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Videos</a>
         </li>
+        <div class="d-flex">
+          <form class="d-flex flex-grow-1">
+            <input class="form-control me-2" type="search" placeholder="Search Videos" aria-label="Search">
+            <button class="btn btn-outline-primary" type="submit">search</button>
+        </form>
         <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          <a class="nav-link" href="/signin" tabindex="-1" aria-disabled="true">Sign in</a>
         </li>
+        </div>
+
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search Videos" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">search</button>
-      </form>
+
     </div>
   </div>
 </nav>

@@ -23,6 +23,14 @@ app.get('/', (req, res) => {
     res.render('home', {title: 'ReelTube'});
 });
 
+app.get('/signin', (req, res) => {
+    res.render('signin');
+});
+
+app.get('/signup', (req, res) => {
+    res.render('signup');
+});
+
 
 app.listen(3000, () => {
     console.log(`listening from port: ${port}!`);
