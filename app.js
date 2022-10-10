@@ -31,6 +31,10 @@ app.get('/signup', (req, res) => {
     res.render('signup');
 });
 
+app.get('/upload', (req, res) => {
+    res.render('video-upload-form');
+});
+
 
 app.listen(3000, () => {
     console.log(`listening from port: ${port}!`);
