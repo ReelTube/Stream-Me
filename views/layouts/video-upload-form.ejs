@@ -3,10 +3,39 @@
 <head>
     <%- include('../partials/head') %> 
 </head>
-<body>
+<body class="container">
     <header>
         <%- include('../partials/header') %> 
     </header>
+
+    <form method="post" action="/upload">
+        <div>
+            <label for="title">Title</label><br>
+            <input 
+            type="text" 
+            id="title" 
+            name="title"
+            />
+        </div>
+        <div>
+            <label for="description">Description</label><br>
+            <input 
+            type="text" 
+            id="description" 
+            name="description"
+            />
+        </div>
+        <!-- <div class="mb-5">
+            <label for="uploaded">Upload</label><br>
+            <input 
+            type="text" 
+            id="uploaded" 
+            name="uploaded"
+            />
+        </div> -->
+        <button type="submit">Upload</button>
+
+    </form>
     
     <footer>
         <%- include('../partials/footer') %> 
