@@ -11,9 +11,10 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS videos (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
-    description TEXT NOT NULL,
+    description TEXT,
+    uploaded_address TEXT NULL,
     user_id INT UNSIGNED NOT NULL,
-    -- uploaded DATETIME NOT NULL,
+    uploaded_time DATETIME NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY(user_id) REFERENCES users (id)
 );
