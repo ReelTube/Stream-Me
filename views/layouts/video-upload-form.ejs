@@ -8,7 +8,7 @@
         <%- include('../partials/header') %> 
     </header>
 
-    <form method="post" action="/upload">
+    <form method="post" action="/upload" enctype="multipart/form-data">
         <div>
             <label for="title">Title</label><br>
             <input 
@@ -26,11 +26,11 @@
             />
         </div>
         <div class="mb-5">
-            <label for="uploaded">Upload</label><br>
+            <label for="video">Video</label><br>
             <input 
-            type="text" 
-            id="uploaded" 
-            name="uploaded"
+            type="file" 
+            id="video" 
+            name="video"
             />
         </div>
         <button type="submit">Upload</button>

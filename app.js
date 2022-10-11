@@ -7,12 +7,14 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
 
+
 const videoStorage = multer.diskStorage({
      destination: 'videos', // Destination to store video 
      filename: (req, file, cb) => {
          cb(null, file.fieldname + '_' + Date.now() 
-          + path.extname(file.originalname))
-     }
+          + path.extname(file.originalname));
+          console.log(file);
+     },
 });
 
 const videoUpload = multer({
@@ -28,9 +30,6 @@ const videoUpload = multer({
       cb(undefined, true)
    }
 })
-
-
-
 
 const port = 3000;
 
@@ -68,25 +67,25 @@ app.get('/upload', (req, res, next) => {
     res.render('video-upload-form');
 });
 
-app.post('/upload',(req, res, next) => {
+app.post('/upload', videoUpload.single('video'),(req, res, next) => {
     let title = req.body.title;
     let description = req.body.description;
-    let upload = req.body.uploaded;
-    let sql = `INSERT INTO videos(name, description, uploaded_address, user_id, uploaded_time) VALUES("${title}", "${description}","${upload}", 1, NOW())`;
+    let video = req.body.video;
+    let sql = `INSERT INTO videos(name, description, uploaded_address, user_id, uploaded_time) VALUES("${title}", "${description}","/home/will/Documents/ReelTube/videos/${req.file.filename}", 1, NOW())`;
 
     db.query(sql, (err, result) => {
         if(err) throw err;
-        res.redirect('/');
+        res.redirect('/upload');
     });
 });
 
-app.get('/video', (req, res) =>{
-    res.render('upload-test');
-});
+// app.get('/video', (req, res) =>{
+//     res.render('upload-test');
+// });
 
-app.post('/video', videoUpload.single('video'), (req, res) =>{
-    res.redirect('/video');
-})
+// app.post('/video', videoUpload.single('video'), (req, res) =>{
+//     res.redirect('/video');
+// })
 
 
 app.listen(3000, () => {
