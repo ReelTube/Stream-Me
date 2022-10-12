@@ -6,10 +6,10 @@ const db = require('./config/database');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
-
+const fs = require ('fs');
 
 const videoStorage = multer.diskStorage({
-     destination: 'videos', // Destination to store video 
+     destination: './public/videos', // Destination to store video 
      filename: (req, file, cb) => {
          cb(null, file.fieldname + '_' + Date.now() 
           + path.extname(file.originalname));
@@ -55,6 +55,28 @@ app.get('/', (req, res) => {
     res.render('home', {title: 'ReelTube'});
 });
 
+app.get('/videoplayer', (req, res) => {
+    const range = req.headers.range
+    const videoPath = './public/videos/video_1665583600143.mp4';
+    const videoSize = fs.statSync(videoPath).size
+    const chunkSize = 1 * 1e6;
+    const start = Number(range.replace(/\D/g, ""))
+    const end = Math.min(start + chunkSize, videoSize - 1)
+    const contentLength = end - start + 1;
+    const headers = {
+        "Content-Range": `bytes ${start}-${end}/${videoSize}`,
+        "Accept-Ranges": "bytes",
+        "Content-Length": contentLength,
+        "Content-Type": "video/mp4"
+    }
+    res.writeHead(206, headers)
+    const stream = fs.createReadStream(videoPath, {
+        start,
+        end
+    })
+    stream.pipe(res)
+})
+
 app.get('/signin', (req, res) => {
     res.render('signin');
 });
@@ -78,14 +100,6 @@ app.post('/upload', videoUpload.single('video'),(req, res, next) => {
         res.redirect('/upload');
     });
 });
-
-// app.get('/video', (req, res) =>{
-//     res.render('upload-test');
-// });
-
-// app.post('/video', videoUpload.single('video'), (req, res) =>{
-//     res.redirect('/video');
-// })
 
 
 app.listen(3000, () => {
