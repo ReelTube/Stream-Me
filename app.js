@@ -40,9 +40,6 @@ const con = require('./config/database');
 
 
 app.use(express.static('public'));
-app.use('/css', express.static(__dirname + 'public/css'));
-app.use('/videos', express.static(__dirname + 'public/videos'));
-
 
 // app.use(expressLayouts);
 app.set('views', './views/layouts');
