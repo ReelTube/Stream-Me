@@ -9,7 +9,7 @@ const path = require('path');
 const fs = require ('fs');
 
 const videoStorage = multer.diskStorage({
-     destination: './public/videos', // Destination to store video 
+     destination: './public/images', // Destination to store video 
      filename: (req, file, cb) => {
          cb(null, file.fieldname + '_' + Date.now() 
           + path.extname(file.originalname));
@@ -24,8 +24,8 @@ const videoUpload = multer({
     },
     fileFilter(req, file, cb) {
       // upload only mp4 and mkv format
-      if (!file.originalname.match(/\.(mp4|MPEG-4|mkv)$/)) { 
-         return cb(new Error('Please upload a video'))
+      if (!file.originalname.match(/\.(jpeg|png)$/)) { 
+         return cb(new Error('Please upload an image'))
       }
       cb(undefined, true)
    }
@@ -36,10 +36,12 @@ const port = 3000;
 
 const app = express();
 const ejs = require('ejs');
+const con = require('./config/database');
 
 
 app.use(express.static('public'));
 app.use('/css', express.static(__dirname + 'public/css'));
+app.use('/videos', express.static(__dirname + 'public/videos'));
 
 
 // app.use(expressLayouts);
@@ -55,27 +57,6 @@ app.get('/', (req, res) => {
     res.render('home', {title: 'ReelTube'});
 });
 
-app.get('/videoplayer', (req, res) => {
-    const range = req.headers.range
-    const videoPath = './public/videos/video_1665583600143.mp4';
-    const videoSize = fs.statSync(videoPath).size
-    const chunkSize = 1 * 1e6;
-    const start = Number(range.replace(/\D/g, ""))
-    const end = Math.min(start + chunkSize, videoSize - 1)
-    const contentLength = end - start + 1;
-    const headers = {
-        "Content-Range": `bytes ${start}-${end}/${videoSize}`,
-        "Accept-Ranges": "bytes",
-        "Content-Length": contentLength,
-        "Content-Type": "video/mp4"
-    }
-    res.writeHead(206, headers)
-    const stream = fs.createReadStream(videoPath, {
-        start,
-        end
-    })
-    stream.pipe(res)
-})
 
 app.get('/signin', (req, res) => {
     res.render('signin');
@@ -93,7 +74,7 @@ app.post('/upload', videoUpload.single('video'),(req, res, next) => {
     let title = req.body.title;
     let description = req.body.description;
     let video = req.body.video;
-    let sql = `INSERT INTO videos(name, description, uploaded_address, user_id, uploaded_time) VALUES("${title}", "${description}","/home/will/Documents/ReelTube/videos/${req.file.filename}", 1, NOW())`;
+    let sql = `INSERT INTO videos(name, description, uploaded_address, user_id, uploaded_time) VALUES("${title}", "${description}","/home/will/Documents/ReelTube/public/videos/${req.file.filename}", 1, NOW())`;
 
     db.query(sql, (err, result) => {
         if(err) throw err;
