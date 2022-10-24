@@ -37,6 +37,7 @@ const port = 3000;
 const app = express();
 const ejs = require('ejs');
 const con = require('./config/database');
+const { userInfo } = require('os');
 
 
 app.use(express.static('public'));
@@ -62,6 +63,18 @@ app.get('/signin', (req, res) => {
 app.get('/signup', (req, res) => {
     res.render('signup');
 });
+
+app.post('/signup', (req, res) => {
+    let username = req.body.username;
+    let password = req.body.password;
+    sql = `INSERT INTO  users(user_name, password) VALUES("${username}", "${password}")`;
+
+    db.query(sql, (err, result) => {
+        if(err) throw err;
+        res.redirect('/signin');
+    })
+
+})
 
 app.get('/upload', (req, res, next) => {
     res.render('video-upload-form');
