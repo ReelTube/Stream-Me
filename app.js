@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
 const fs = require ('fs');
+const { body, validationResult } = require('express-validator');
 
 const videoStorage = multer.diskStorage({
      destination: './public/images', // Destination to store video 
@@ -64,15 +65,26 @@ app.get('/signup', (req, res) => {
     res.render('signup');
 });
 
-app.post('/signup', (req, res) => {
-    let username = req.body.username;
-    let password = req.body.password;
-    sql = `INSERT INTO  users(user_name, password) VALUES("${username}", "${password}")`;
+app.post('/signup',
+    body('username')
+    .isLength({ min: 5 })
+    .withMessage('Username must be at least 5 characters'),
+    // body('username').isRequired(),
+    body('password').isLength({ min: 5 }),
+    (req, res) => {
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            return res.render('signup', {message:"Username has to be longer than 5 characters"});
+        }
 
-    db.query(sql, (err, result) => {
-        if(err) throw err;
-        res.redirect('/signin');
-    })
+        let username = req.body.username;
+        let password = req.body.password;
+        sql = `INSERT INTO  users(user_name, password) VALUES("${username}", "${password}")`;
+
+        db.query(sql, (err, result) => {
+            if(err) throw err;
+            res.redirect('/signin');
+        })
 
 })
 
