@@ -82,8 +82,7 @@ app.post('/signup',
     body('username')
     .isLength({ min: 5 }),
     body('password')
-    .isLength({ min: 5})
-    .matches('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/'),
+    .isLength({ min: 10}),
     (req, res) => {
 
         let username = req.body.username;
@@ -96,11 +95,18 @@ app.post('/signup',
 
         const errors = validationResult(req);
         if(!errors.isEmpty()){
+            console.log(schema.validate('Dominicano1'));
             if(username.length < 5){
                 message = "Username must be 5 characters long";
                 
             }
-            if(!schema.validate(password)){
+
+            if(schema.validate(password) == false){
+                console.log(schema.validate(password));
+
+            }
+
+            if(password.length < 10){
                 error ="Password must be at least 10 characters, contain a number and a special character";
             }
             return res.render('signup', {message: message, error}); 
