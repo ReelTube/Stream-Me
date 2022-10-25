@@ -67,19 +67,35 @@ app.get('/signup', (req, res) => {
 
 app.post('/signup',
     body('username')
-    .isLength({ min: 5 })
-    .withMessage('Username must be at least 5 characters'),
+    .isLength({ min: 5 }),
     // body('username').isRequired(),
-    body('password').isLength({ min: 5 }),
+    body('password').isLength({ min: 10 }),
     (req, res) => {
-        const errors = validationResult(req);
-        if(!errors.isEmpty()){
-            return res.render('signup', {message:"Username has to be longer than 5 characters"});
-        }
+
 
         let username = req.body.username;
         let password = req.body.password;
         sql = `INSERT INTO  users(user_name, password) VALUES("${username}", "${password}")`;
+
+        let message = "";
+        let error = "";
+
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            // if(username.length < 5 && password.length < 5){
+            //     return res.render('signup', {message:"Username must be at least 5 characters long and password 10"});
+            // }
+            if(username.length < 5){
+                message = "Username must be 5 characters long";
+                
+            }
+            if(password.length < 5){
+                error ="Password must be at least 5 characters long";
+            }
+            return res.render('signup', {message: message, error}); 
+            
+        }
+
 
         db.query(sql, (err, result) => {
             if(err) throw err;
