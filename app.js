@@ -8,6 +8,8 @@ const multer = require('multer');
 const path = require('path');
 const fs = require ('fs');
 const { body, validationResult } = require('express-validator');
+const { check } = require('express-validator');
+const passwordValidator = require('password-validator');
 
 const videoStorage = multer.diskStorage({
      destination: './public/images', // Destination to store video 
@@ -65,13 +67,24 @@ app.get('/signup', (req, res) => {
     res.render('signup');
 });
 
+const schema = new passwordValidator();
+schema 
+    .is().min(8)
+    .is().max(100)
+    .has().uppercase()
+    .has().lowercase()
+    .has().digits(2)
+    .has().not().spaces()
+    .is().not().oneOf(['Passw0rd', 'Password123']);
+
+
 app.post('/signup',
     body('username')
     .isLength({ min: 5 }),
-    // body('username').isRequired(),
-    body('password').isLength({ min: 10 }),
+    body('password')
+    .isLength({ min: 5})
+    .matches('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/'),
     (req, res) => {
-
 
         let username = req.body.username;
         let password = req.body.password;
@@ -79,18 +92,16 @@ app.post('/signup',
 
         let message = "";
         let error = "";
+        
 
         const errors = validationResult(req);
         if(!errors.isEmpty()){
-            // if(username.length < 5 && password.length < 5){
-            //     return res.render('signup', {message:"Username must be at least 5 characters long and password 10"});
-            // }
             if(username.length < 5){
                 message = "Username must be 5 characters long";
                 
             }
-            if(password.length < 5){
-                error ="Password must be at least 5 characters long";
+            if(!schema.validate(password)){
+                error ="Password must be at least 10 characters, contain a number and a special character";
             }
             return res.render('signup', {message: message, error}); 
             
