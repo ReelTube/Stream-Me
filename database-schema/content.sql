@@ -3,6 +3,7 @@ CREATE DATABASE IF NOT EXISTS stream_db;
 USE stream_db;
 
 DROP TABLE episodes;
+DROP TABLE season;
 DROP TABLE shows;
 DROP TABLE movies;
 DROP TABLE content;
@@ -28,24 +29,23 @@ CREATE TABLE IF NOT EXISTS movies (
 CREATE TABLE IF NOT EXISTS shows (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     content_id INT,
-    season INT,
     FOREIGN KEY(content_id) REFERENCES content(id)
 );
 
 CREATE TABLE IF NOT EXISTS season (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-    show_id INT,
+    shows_id INT,
     number_of_episodes INT,
     FOREIGN KEY(shows_id) REFERENCES shows(id)
 );
     
 CREATE TABLE IF NOT EXISTS episodes (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-    shows_id INT,
+    season_id INT,
     episode_title TEXT,
     description TEXT,
     path TEXT,
-    FOREIGN KEY(shows_id) REFERENCES shows(id)
+    FOREIGN KEY(season_id) REFERENCES season(id)
 );
     
     
