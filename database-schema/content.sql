@@ -28,9 +28,15 @@ CREATE TABLE IF NOT EXISTS movies (
 CREATE TABLE IF NOT EXISTS shows (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     content_id INT,
-    season Int,
-    number_of_episodes Int,
+    season INT,
     FOREIGN KEY(content_id) REFERENCES content(id)
+);
+
+CREATE TABLE IF NOT EXISTS season (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    show_id INT,
+    number_of_episodes INT,
+    FOREIGN KEY(shows_id) REFERENCES shows(id)
 );
     
 CREATE TABLE IF NOT EXISTS episodes (
