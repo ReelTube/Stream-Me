@@ -96,11 +96,20 @@ body {
 
 }
 
+.page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+.content-wrap {
+  padding-bottom: 10rem;
+}
+
 footer {
-  position: static;
+  position: absolute;
   bottom: 0;
-  width: 100vw;
-  height: 10vh;
+  width: 100%;
+  height: 10rem;
 }
 
 
@@ -110,16 +119,14 @@ footer {
   justify-content: center;
   margin-left: 20px;
   list-style: none;
-  position: relative;
+
   
 }
 
 .footer-bottom {
-  display: flex;
-  justify-content: end;
-  position: relative;
-  bottom: 20px;
-  right: 10%;
+  position: absolute;
+  bottom: 0;
+  right: 50px;
 }
 
 .self-bottom {
@@ -164,7 +171,7 @@ a {
    display: flex;
    justify-content: center;
    list-style: none;
-   margin-bottom: 100px;
+   /* margin-bottom: 100px; */
 }
 
 
@@ -180,6 +187,14 @@ a {
   margin-top: 100px;
   margin-bottom: 100px;
 }
+
+.player {
+  border: 2px solid #7b2cbf;
+  object-fit: cover;
+  padding: 0;
+  margin: 0;
+ }
+
 
 
 
