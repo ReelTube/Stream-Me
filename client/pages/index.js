@@ -3,7 +3,6 @@ import Image from "next/image";
 import { Inter } from "@next/font/google";
 import styles from "../styles/Home.module.css";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
@@ -15,8 +14,110 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-      
+      <main className="">
+        <div className="_abd">
+          <h1>Random Selection</h1>
+          <div className="video-cards">
+            <div class="card">
+              <div class="container">
+                <h4>
+                  <b>Money Ball</b>
+                </h4>
+                <p>Description</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="container">
+                <h4>
+                  <b>John Doe</b>
+                </h4>
+                <p>Architect & Engineer</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="_abd">
+          <h1>Movies</h1>
+          <div className="video-cards">
+            <div class="card">
+              <div class="container">
+                <h4>
+                  <b>Money Ball</b>
+                </h4>
+                <p>Description</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="container">
+                <h4>
+                  <b>John Doe</b>
+                </h4>
+                <p>Architect & Engineer</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="container">
+                <h4>
+                  <b>John Doe</b>
+                </h4>
+                <p>Architect & Engineer</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="container">
+                <h4>
+                  <b>John Doe</b>
+                </h4>
+                <p>Architect & Engineer</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="container">
+                <h4>
+                  <b>John Doe</b>
+                </h4>
+                <p>Architect & Engineer</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="container">
+                <h4>
+                  <b>John Doe</b>
+                </h4>
+                <p>Architect & Engineer</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="container">
+                <h4>
+                  <b>John Doe</b>
+                </h4>
+                <p>Architect & Engineer</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="_abd">
+          <h1>Shows</h1>
+          <div className="video-cards">
+            <div class="card">
+              <div class="container">
+                <h4>
+                  <b>Money Ball</b>
+                </h4>
+                <p>Description</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="container">
+                <h4>
+                  <b>John Doe</b>
+                </h4>
+                <p>Architect & Engineer</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </main>
     </>
   );
