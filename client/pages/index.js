@@ -18,16 +18,16 @@ export default function Home() {
         <div className="_abd">
           <h1>Random Selection</h1>
           <div className="video-cards">
-            <div class="card">
-              <div class="container">
+            <div className="card">
+              <div className="container">
                 <h4>
                   <b>Money Ball</b>
                 </h4>
                 <p>Description</p>
               </div>
             </div>
-            <div class="card">
-              <div class="container">
+            <div className="card">
+              <div className="container">
                 <h4>
                   <b>John Doe</b>
                 </h4>
@@ -39,56 +39,56 @@ export default function Home() {
         <div className="_abd">
           <h1>Movies</h1>
           <div className="video-cards">
-            <div class="card">
-              <div class="container">
+            <div className="card">
+              <div className="container">
                 <h4>
                   <b>Money Ball</b>
                 </h4>
                 <p>Description</p>
               </div>
             </div>
-            <div class="card">
-              <div class="container">
+            <div className="card">
+              <div className="container">
                 <h4>
                   <b>John Doe</b>
                 </h4>
                 <p>Architect & Engineer</p>
               </div>
             </div>
-            <div class="card">
-              <div class="container">
+            <div className="card">
+              <div className="container">
                 <h4>
                   <b>John Doe</b>
                 </h4>
                 <p>Architect & Engineer</p>
               </div>
             </div>
-            <div class="card">
-              <div class="container">
+            <div className="card">
+              <div className="container">
                 <h4>
                   <b>John Doe</b>
                 </h4>
                 <p>Architect & Engineer</p>
               </div>
             </div>
-            <div class="card">
-              <div class="container">
+            <div className="card">
+              <div className="container">
                 <h4>
                   <b>John Doe</b>
                 </h4>
                 <p>Architect & Engineer</p>
               </div>
             </div>
-            <div class="card">
-              <div class="container">
+            <div className="card">
+              <div className="container">
                 <h4>
                   <b>John Doe</b>
                 </h4>
                 <p>Architect & Engineer</p>
               </div>
             </div>
-            <div class="card">
-              <div class="container">
+            <div className="card">
+              <div className="container">
                 <h4>
                   <b>John Doe</b>
                 </h4>
@@ -100,16 +100,16 @@ export default function Home() {
         <div className="_abd">
           <h1>Shows</h1>
           <div className="video-cards">
-            <div class="card">
-              <div class="container">
+            <div className="card">
+              <div className="container">
                 <h4>
                   <b>Money Ball</b>
                 </h4>
                 <p>Description</p>
               </div>
             </div>
-            <div class="card">
-              <div class="container">
+            <div className="card">
+              <div className="container">
                 <h4>
                   <b>John Doe</b>
                 </h4>

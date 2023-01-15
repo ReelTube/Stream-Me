@@ -7,15 +7,22 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios"
 
+
 export default function VideoPage() {
 
-  // async function test() {
-  //   const response = await axios("http://localhost:5000/content")
-  //   const results = response
-  //   console.log(results)
-  // }
+  const[path, setPath] =useState();
+  async function test() {
+    const response = await axios("http://localhost:5000/content")
+    const results = response.data[0].path
+    setPath(results)
+    console.log(results)
+  }
 
-  // test()
+  useEffect(() => {
+    test();
+  },[])
+
+  test();
 
   return (
     <>
@@ -27,7 +34,7 @@ export default function VideoPage() {
         <div></div>
         <ReactPlayer
           className="player"
-          url="http://localhost:5000/content"
+          url={path}
           playing={true}
           muted={true}
           controls={true}
