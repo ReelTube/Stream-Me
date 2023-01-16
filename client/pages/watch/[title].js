@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from 'next/router'
 import dynamic from "next/dynamic";
 const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
 import { Container } from "@mui/material";
@@ -10,11 +11,21 @@ import axios from "axios"
 
 export default function VideoPage() {
 
-  const[path, setPath] =useState();
+  const[path, setPath] = useState()
+  const[titles, setTitles] = useState()
+
+  const router = useRouter()
+
+  const { title } = router.query
+
+  const url = `http://localhost:5000/${title}.mp4`
+
+
   async function test() {
-    const response = await axios("http://localhost:5000/content")
-    const results = response.data[0].path
-    setPath(results)
+    const response = await axios(`http://localhost:5000/content/EnochArden_512kb.mp4`)
+    const results = response.data[0]
+    setTitles(results.title)
+    setPath(results.path)
     console.log(results)
   }
 
@@ -22,19 +33,17 @@ export default function VideoPage() {
     test();
   },[])
 
-  test();
 
   return (
     <>
       <Head>
         <title>Watching</title>
       </Head>
-      <h1 className="single-view-center">Money Ball</h1>
+      <h1 className="single-view-center">{title}</h1>
       <Container className="center-player">
-        <div></div>
         <ReactPlayer
           className="player"
-          url={path}
+          url={url}
           playing={true}
           muted={true}
           controls={true}

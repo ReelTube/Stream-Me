@@ -17,7 +17,7 @@ VALUES("movie",
 "Really old people");
 
 INSERT INTO movies (content_id, path)
-VALUES(1, "http://localhost:5000/content");
+VALUES(1, "http://localhost:5000/EnochArden_512kb.mp4");
 
-SELECT title, category, description, type_of_content FROM content AS A join movies AS B ON A.id =
+SELECT title, category, description, type_of_content, path FROM content AS A join movies AS B ON A.id =
 content_id;

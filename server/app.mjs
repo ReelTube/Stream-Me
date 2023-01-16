@@ -16,18 +16,20 @@ app.get("/", (req, res) => {
   res.send("Test");
 });
 
-app.get("/content", (req, res) => {
+app.get("/content/:name", (req, res) => {
   const query = `SELECT title, category, description, type_of_content, path FROM content AS A join movies AS B ON A.id =
-  content_id`
+  content_id WHERE B.path= 'http://localhost:5000/${req.params.name}'`
   pool.query(query, (err, results, fields) => {
     console.log(results);
     res.send(results);
   });
-  res.sendFile("assets/EnochArden_512kb.mp4", { root: __dirname });
+  // res.sendFile("assets/EnochArden_512kb.mp4", { root: __dirname });
 });
 
-app.get("/file", (req, res) => {
-  res.sendFile("assets/EnochArden_512kb.mp4", { root: __dirname });
+// EnochArden_512kb.mp4
+
+app.get("/:name", (req, res) => {
+  res.sendFile(`assets/${req.params.name}`, { root: __dirname });
 })
 
 app.listen(PORT, () => {
