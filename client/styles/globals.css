@@ -203,7 +203,7 @@ a {
 
 .video-cards {
   display: flex;
-  overflow: scroll;
+  overflow-x: scroll;
 }
 
 ._abd {

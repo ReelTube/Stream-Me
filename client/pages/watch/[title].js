@@ -13,15 +13,9 @@ export default function VideoPage() {
 
   const[path, setPath] = useState()
   const[titles, setTitles] = useState()
-
   const router = useRouter()
-
   const { title } = router.query
-  
-
-
   const url = `http://localhost:5000/${title}.mp4`
-
 
   async function test() {
     const response = await axios(`http://localhost:5000/content`)
@@ -39,8 +33,6 @@ export default function VideoPage() {
         console.log("None Found");
       }
     }
-
-    console.log(results)
   }
 
   useEffect(() => {
