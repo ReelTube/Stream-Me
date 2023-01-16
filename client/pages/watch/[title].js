@@ -17,21 +17,35 @@ export default function VideoPage() {
   const router = useRouter()
 
   const { title } = router.query
+  
+
 
   const url = `http://localhost:5000/${title}.mp4`
 
 
   async function test() {
-    const response = await axios(`http://localhost:5000/content/EnochArden_512kb.mp4`)
-    const results = response.data[0]
-    setTitles(results.title)
-    setPath(results.path)
+    const response = await axios(`http://localhost:5000/content`)
+    const results = response.data
+
+    for(let i = 0; i < results.length; i++){
+      console.log(title)
+      if(results[i].title === title){
+        console.log("Found")
+        console.log(results[i].path)
+        setTitles(results.title)
+        setPath(results.path)
+        return
+      } else {
+        console.log("None Found");
+      }
+    }
+
     console.log(results)
   }
 
   useEffect(() => {
     test();
-  },[])
+  },[title])
 
 
   return (
@@ -39,6 +53,7 @@ export default function VideoPage() {
       <Head>
         <title>Watching</title>
       </Head>
+
       <h1 className="single-view-center">{title}</h1>
       <Container className="center-player">
         <ReactPlayer

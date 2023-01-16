@@ -16,9 +16,9 @@ app.get("/", (req, res) => {
   res.send("Test");
 });
 
-app.get("/content/:name", (req, res) => {
+app.get("/content", (req, res) => {
   const query = `SELECT title, category, description, type_of_content, path FROM content AS A join movies AS B ON A.id =
-  content_id WHERE B.path= 'http://localhost:5000/${req.params.name}'`
+  content_id`
   pool.query(query, (err, results, fields) => {
     console.log(results);
     res.send(results);
