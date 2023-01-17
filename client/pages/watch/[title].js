@@ -13,6 +13,9 @@ export default function VideoPage() {
 
   const[path, setPath] = useState()
   const[titles, setTitles] = useState()
+  const[director, setDirector] = useState()
+  const[actors, setActors] = useState()
+
   const router = useRouter()
   const { title } = router.query
   const url = `http://localhost:5000/${title}.mp4`
@@ -22,15 +25,14 @@ export default function VideoPage() {
     const results = response.data
 
     for(let i = 0; i < results.length; i++){
-      console.log(title)
       if(results[i].title === title){
-        console.log("Found")
-        console.log(results[i].path)
-        setTitles(results.title)
-        setPath(results.path)
-        return
+        console.log("Ready!!!")
+        setTitles(results[i].title)
+        setPath(results[i].path)
+        setDirector(results[i].director)
+        setActors(results[i].actors)
       } else {
-        console.log("None Found");
+        console.log("Searching...");
       }
     }
   }
@@ -52,17 +54,16 @@ export default function VideoPage() {
           className="player"
           url={url}
           playing={true}
-          muted={true}
+          muted={false}
           controls={true}
         />
       </Container>
       <ul>
         <div className="contain-single">
           <div>
-            <li>Title:</li>
-            <li>Director:</li>
-            <li>Actors:</li>
-            <li>Year:</li>
+            <li>Title: {title}</li>
+            <li>Director: {director}</li>
+            <li>Actors: {actors}</li>
           </div>
         </div>
       </ul>
