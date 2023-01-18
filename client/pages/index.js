@@ -2,10 +2,44 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "@next/font/google";
 import styles from "../styles/Home.module.css";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [datas, setData] = useState([
+    {
+      title: "",
+      category: "",
+      description: "",
+      type_of_content: "",
+      director: "",
+      actors: "",
+      path: "",
+    },
+  ]);
+
+  async function gettingData() {
+    const response = await axios(`http://localhost:5000/content`);
+    const data = await response.data;
+    // const results = data;
+    console.log(data);
+
+    setData(data);
+  }
+
+  // datas.map((d) => console.log(d.title));
+
+  // for(let i = 0; i < data.length; i++) {
+  //   console.log(data[i].title);
+  // }
+
+  useEffect(() => {
+    gettingData();
+  }, []);
+
   return (
     <>
       <Head>
@@ -39,62 +73,17 @@ export default function Home() {
         <div className="_abd">
           <h1>Movies</h1>
           <div className="video-cards">
-            <div className="card">
-              <div className="container">
-                <h4>
-                  <b>Money Ball</b>
-                </h4>
-                <p>Description</p>
+            {datas.map((details) => (
+              <div key={details.id} className="card">
+                <div className="container">
+                  <h4>
+                    <b>{details.title}</b>
+                  </h4>
+                  <p>{details.category}</p>
+                  <Link href={`http://localhost:3000/watch/${details.title}`}>See Movie</Link>
+                </div>
               </div>
-            </div>
-            <div className="card">
-              <div className="container">
-                <h4>
-                  <b>John Doe</b>
-                </h4>
-                <p>Architect & Engineer</p>
-              </div>
-            </div>
-            <div className="card">
-              <div className="container">
-                <h4>
-                  <b>John Doe</b>
-                </h4>
-                <p>Architect & Engineer</p>
-              </div>
-            </div>
-            <div className="card">
-              <div className="container">
-                <h4>
-                  <b>John Doe</b>
-                </h4>
-                <p>Architect & Engineer</p>
-              </div>
-            </div>
-            <div className="card">
-              <div className="container">
-                <h4>
-                  <b>John Doe</b>
-                </h4>
-                <p>Architect & Engineer</p>
-              </div>
-            </div>
-            <div className="card">
-              <div className="container">
-                <h4>
-                  <b>John Doe</b>
-                </h4>
-                <p>Architect & Engineer</p>
-              </div>
-            </div>
-            <div className="card">
-              <div className="container">
-                <h4>
-                  <b>John Doe</b>
-                </h4>
-                <p>Architect & Engineer</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
         <div className="_abd">
