@@ -9,7 +9,19 @@ import Link from "next/link";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const [datas, setData] = useState([
+  const [movies, setMovie] = useState([
+    {
+      title: "",
+      category: "",
+      description: "",
+      type_of_content: "",
+      director: "",
+      actors: "",
+      path: "",
+    },
+  ]);
+
+  const [shows, setShow] = useState([
     {
       title: "",
       category: "",
@@ -22,22 +34,24 @@ export default function Home() {
   ]);
 
   async function gettingData() {
-    const response = await axios(`http://localhost:5000/content`);
+    const response = await axios(`http://localhost:5000/movies`);
     const data = await response.data;
-    // const results = data;
     console.log(data);
 
-    setData(data);
+    setMovie(data);
   }
 
-  // datas.map((d) => console.log(d.title));
+  async function gettingShows() {
+    const response = await axios(`http://localhost:5000/shows`);
+    const data = await response.data;
+    console.log(data);
 
-  // for(let i = 0; i < data.length; i++) {
-  //   console.log(data[i].title);
-  // }
+    setShow(data);
+  }
 
   useEffect(() => {
     gettingData();
+    gettingShows();
   }, []);
 
   return (
@@ -51,36 +65,23 @@ export default function Home() {
       <main className="">
         <div className="_abd">
           <h1>Random Selection</h1>
-          <div className="video-cards">
-            <div className="card">
-              <div className="container">
-                <h4>
-                  <b>Money Ball</b>
-                </h4>
-                <p>Description</p>
-              </div>
-            </div>
-            <div className="card">
-              <div className="container">
-                <h4>
-                  <b>John Doe</b>
-                </h4>
-                <p>Architect & Engineer</p>
-              </div>
-            </div>
-          </div>
+          <div className="video-cards"></div>
         </div>
         <div className="_abd">
           <h1>Movies</h1>
           <div className="video-cards">
-            {datas.map((details) => (
+            {movies.map((details) => (
               <div key={details.id} className="card">
                 <div className="container">
                   <h4>
                     <b>{details.title}</b>
                   </h4>
                   <p>{details.category}</p>
-                  <Link href={`http://localhost:3000/watch/${details.title}`}>See Movie</Link>
+                  <Link
+                    href={`http://localhost:3000/watch/movies/${details.title}`}
+                  >
+                    See Movie
+                  </Link>
                 </div>
               </div>
             ))}
@@ -89,22 +90,21 @@ export default function Home() {
         <div className="_abd">
           <h1>Shows</h1>
           <div className="video-cards">
-            <div className="card">
-              <div className="container">
-                <h4>
-                  <b>Money Ball</b>
-                </h4>
-                <p>Description</p>
+            {shows.map((details) => (
+              <div key={details.id} className="card">
+                <div className="container">
+                  <h4>
+                    <b>{details.title}</b>
+                  </h4>
+                  <p>{details.category}</p>
+                  <Link
+                    href={`http://localhost:3000/watch/shows/${details.title}`}
+                  >
+                    See Show
+                  </Link>
+                </div>
               </div>
-            </div>
-            <div className="card">
-              <div className="container">
-                <h4>
-                  <b>John Doe</b>
-                </h4>
-                <p>Architect & Engineer</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </main>

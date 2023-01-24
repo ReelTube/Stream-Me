@@ -19,20 +19,32 @@ app.get("/", (req, res) => {
   res.send("Test");
 });
 
-app.get("/content", (req, res) => {
+app.get("/movies", (req, res) => {
   const query = `SELECT title, category, description, type_of_content, director, actors, path FROM content AS A join movies AS B ON A.id =
-  content_id`
+  content_id WHERE type_of_content = 'movie'`
   pool.query(query, (err, results, fields) => {
     console.log(results);
     res.send(results);
   });
-  // res.sendFile("assets/EnochArden_512kb.mp4", { root: __dirname });
+});
+
+app.get("/shows", (req, res) => {
+  const query = `SELECT title, category, description, type_of_content, director, actors, path FROM content AS A join movies AS B ON A.id =
+  content_id WHERE type_of_content = 'show'`
+  pool.query(query, (err, results, fields) => {
+    console.log(results);
+    res.send(results);
+  });
 });
 
 // EnochArden_512kb.mp4
 
-app.get("/:name", (req, res) => {
-  res.sendFile(`assets/${req.params.name}`, { root: __dirname });
+app.get("/movies/:name", (req, res) => {
+  res.sendFile(`assets/movies/${req.params.name}`, { root: __dirname });
+})
+
+app.get("/shows/:name", (req, res) => {
+  res.sendFile(`assets/movies/${req.params.name}`, { root: __dirname });
 })
 
 app.listen(PORT, () => {
