@@ -78,7 +78,7 @@ export default function Home() {
                   </h4>
                   <p>{details.category}</p>
                   <Link
-                    href={`http://localhost:3000/watch/movies/${details.title}`}
+                    href={`/watch/movies/${encodeURIComponent(details.title)}`}
                   >
                     See Movie
                   </Link>
@@ -98,7 +98,7 @@ export default function Home() {
                   </h4>
                   <p>{details.category}</p>
                   <Link
-                    href={`http://localhost:3000/watch/shows/${details.title}`}
+                    href={`/watch/shows/${encodeURIComponent(details.title)}`}
                   >
                     See Show
                   </Link>
