@@ -17,10 +17,10 @@ export default function VideoPage() {
 
   const router = useRouter();
   const { title } = router.query;
-  const url = `http://localhost:5000/${title}.mp4`;
+  const url = `http://localhost:5000/shows/${title}.mp4`;
 
   async function test() {
-    const response = await axios(`http://localhost:5000/content`);
+    const response = await axios(`http://localhost:5000/shows`);
     const results = response.data;
 
     for (let i = 0; i < results.length; i++) {
